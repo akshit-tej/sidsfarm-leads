@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<head禁止: true
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
     }
     body { 
       font-family: 'Arial', sans-serif; 
-      background: linear-gradient(to bottom, var(--light-yellow), var(--white)); 
+      background: linear-gradient(to bottom, var(--light-yellow), var(--white)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="1" fill="rgba(76, 175, 80, 0.1)"/></svg>') repeat; 
       min-height: 100vh; 
       display: flex; 
       justify-content: center; 
@@ -201,7 +202,7 @@
     const overlay = document.getElementById("overlay");
     const successModal = document.getElementById("successModal");
     const errorModal = document.getElementById("errorModal");
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzWQa3GAAvR4RZP8oMZ0jy6QAHipUO5wXyX1IbnYM2O/dev";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzkXJnwDxm70FJSAf9T-hP8cTQJfhDFanua8v_hF9RWHQo-7IPPcVikGDWvd9Cqx3xICQ/exec";
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
