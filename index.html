@@ -6,101 +6,155 @@
   <title>Sid’s Farm Lead Collection</title>
   <style>
     :root { 
-      --green: #4CAF50; 
-      --dark-green: #2e7d32; 
-      --red: #f44336; 
+      --primary-green: #4CAF50; /* Bright green for buttons and accents */
+      --dark-green: #2E7D32; /* Darker green for text */
+      --light-yellow: #FFF9C4; /* Light yellow for background */
+      --white: #FFFFFF; /* Clean white for form background */
+      --red: #F44336; /* Red for errors */
+      --shadow: rgba(0, 0, 0, 0.1); /* Subtle shadow */
     }
     body { 
-      font-family: Arial, sans-serif; 
-      background: linear-gradient(to bottom, #e8f5e9, #ffffff); 
+      font-family: 'Arial', sans-serif; 
+      background: linear-gradient(to bottom, var(--light-yellow), var(--white)); 
       min-height: 100vh; 
       display: flex; 
       justify-content: center; 
       align-items: center; 
       margin: 0; 
+      padding: 20px; 
     }
     .container { 
       max-width: 400px; 
-      padding: 20px; 
+      position: relative; 
       text-align: center; 
     }
     h1 { 
       color: var(--dark-green); 
-      font-size: 1.8rem; 
+      font-size: 2rem; 
+      margin-bottom: 10px; 
     }
     p { 
-      color: #555; 
+      color: #666; 
+      font-size: 1.1rem; 
       margin-bottom: 20px; 
     }
     form { 
-      background: white; 
-      padding: 20px; 
-      border-radius: 10px; 
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-      border: 2px solid var(--green); 
+      background: var(--white); 
+      padding: 25px; 
+      border-radius: 15px; 
+      box-shadow: 0 5px 20px var(--shadow); 
+      border: 3px solid var(--primary-green); 
     }
     label { 
       display: block; 
       color: var(--dark-green); 
       margin: 10px 0 5px; 
       font-weight: bold; 
+      font-size: 1rem; 
     }
     input { 
       width: 100%; 
-      padding: 10px; 
-      border: 1px solid var(--green); 
-      border-radius: 5px; 
+      padding: 12px; 
+      border: 2px solid var(--primary-green); 
+      border-radius: 8px; 
       box-sizing: border-box; 
       font-size: 1rem; 
+      transition: border-color 0.3s; 
+    }
+    input:focus { 
+      border-color: var(--dark-green); 
+      outline: none; 
     }
     button { 
       width: 100%; 
-      padding: 12px; 
-      background: var(--green); 
-      color: white; 
+      padding: 14px; 
+      background: var(--primary-green); 
+      color: var(--white); 
       border: none; 
-      border-radius: 5px; 
+      border-radius: 8px; 
       cursor: pointer; 
       margin-top: 15px; 
-      font-size: 1rem; 
+      font-size: 1.1rem; 
+      font-weight: bold; 
+      transition: background 0.3s; 
     }
     button:hover { 
       background: var(--dark-green); 
     }
     .logo { 
-      max-width: 150px; 
-      margin-bottom: 15px; 
+      max-width: 180px; 
+      margin-bottom: 20px; 
     }
     .cow { 
-      width: 50px; 
+      width: 60px; 
       position: absolute; 
       top: 10px; 
       right: 10px; 
+      animation: bounce 2s infinite; 
+    }
+    @keyframes bounce { 
+      0%, 100% { transform: translateY(0); } 
+      50% { transform: translateY(-10px); } 
     }
     #loading { 
       display: none; 
-      color: var(--green); 
+      color: var(--primary-green); 
       margin-top: 10px; 
+      font-style: italic; 
+    }
+    #loading .dot { 
+      animation: dot 1.5s infinite; 
+      display: inline-block; 
+    }
+    #loading .dot:nth-child(2) { animation-delay: 0.2s; }
+    #loading .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dot { 
+      0%, 20% { transform: translateY(0); } 
+      40% { transform: translateY(-5px); } 
+      60% { transform: translateY(0); } 
     }
     .modal { 
       position: fixed; 
       top: 50%; 
       left: 50%; 
       transform: translate(-50%, -50%); 
-      background: white; 
+      background: var(--white); 
       padding: 20px; 
       border-radius: 10px; 
-      box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+      box-shadow: 0 0 15px var(--shadow); 
       display: none; 
       z-index: 10; 
       text-align: center; 
     }
     .modal.success { 
-      border: 2px solid var(--green); 
+      border: 3px solid var(--primary-green); 
     }
     .modal.error { 
       background: var(--red); 
-      color: white; 
+      color: var(--white); 
+    }
+    .modal h2 { 
+      color: var(--dark-green); 
+      margin: 0 0 10px; 
+      font-size: 1.5rem; 
+    }
+    .modal p { 
+      margin: 0; 
+      color: #555; 
+      font-size: 1rem; 
+    }
+    .modal .tick { 
+      font-size: 2rem; 
+      color: var(--primary-green); 
+      margin-bottom: 10px; 
+    }
+    .modal a { 
+      color: var(--primary-green); 
+      text-decoration: none; 
+      font-weight: bold; 
+    }
+    .modal a:hover { 
+      text-decoration: underline; 
     }
     .overlay { 
       position: fixed; 
@@ -108,7 +162,7 @@
       left: 0; 
       width: 100%; 
       height: 100%; 
-      background: rgba(0,0,0,0.5); 
+      background: rgba(0, 0, 0, 0.5); 
       display: none; 
       z-index: 5; 
     }
@@ -116,7 +170,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/Sids%20Farm.png.png" alt="Sid’s Farm" class="logo">
+    <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/SidsFarm.png" alt="Sid’s Farm" class="logo">
     <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/cow.png" alt="Cow" class="cow">
     <h1>Welcome to Sid’s Farm!</h1>
     <p>Get your free sample!</p>
@@ -128,13 +182,17 @@
       <label for="community">Community Name</label>
       <input type="text" id="community" required>
       <button type="submit">Submit</button>
-      <div id="loading">Submitting...</div>
+      <div id="loading">
+        <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span> Submitting
+      </div>
     </form>
   </div>
   <div id="overlay" class="overlay"></div>
   <div id="successModal" class="modal success">
-    <h2>✓ Success!</h2>
+    <div class="tick">✓</div>
+    <h2>Success!</h2>
     <p>Thank you for joining Sid’s Farm!</p>
+    <p><a href="https://sidsfarm.com" target="_blank">Visit our website for more!</a></p>
   </div>
   <div id="errorModal" class="modal error"></div>
   <script>
@@ -143,7 +201,7 @@
     const overlay = document.getElementById("overlay");
     const successModal = document.getElementById("successModal");
     const errorModal = document.getElementById("errorModal");
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzS3lKKZH9ZF0-jAzCOIXcNmJ8zaYCmoHXvzPTKDdjeIXVIV0fLH1GIWhuxl3-TjDLy/exec"; // Replace this with your Web App URL
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzWQa3GAAvR4RZP8oMZ0jy6QAHipUO5wXyX1IbnYM2O/dev";
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -181,7 +239,9 @@
         const response = await fetch(WEB_APP_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
+          mode: "cors",
+          redirect: "follow"
         });
 
         const result = await response.json();
@@ -196,7 +256,7 @@
           throw new Error(result.message);
         }
       } catch (error) {
-        showError(error.message || "Failed to submit. Try again.");
+        showError(error.message || "Failed to submit. Please try again.");
         loading.style.display = "none";
       }
     });
