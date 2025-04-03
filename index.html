@@ -3,276 +3,221 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sid’s Farm Lead Collection</title>
+  <title>Sid’s Farm - Free Milk Sample</title>
   <style>
-    :root { 
-      --primary-green: #4CAF50; /* Bright green for buttons and accents */
-      --dark-green: #2E7D32; /* Darker green for text */
-      --light-yellow: #FFF9C4; /* Light yellow for background */
-      --white: #FFFFFF; /* Clean white for form background */
-      --red: #F44336; /* Red for errors */
-      --shadow: rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #d4edda, #f8f9fa);
+      margin: 0;
+      overflow: hidden;
+      position: relative;
     }
-    body { 
-      font-family: 'Arial', sans-serif; 
-      background: linear-gradient(to bottom, var(--light-yellow), var(--white)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="1" fill="rgba(76, 175, 80, 0.1)"/></svg>') repeat; 
-      min-height: 100vh; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      margin: 0; 
-      padding: 20px; 
+    h1 {
+      color: #2e7d32;
+      font-size: 32px;
+      margin: 0 0 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
-    .container { 
-      max-width: 400px; 
-      position: relative; 
-      text-align: center; 
+    p {
+      color: #495057;
+      font-size: 18px;
+      margin-bottom: 25px;
     }
-    h1 { 
-      color: var(--dark-green); 
-      font-size: 2rem; 
-      margin-bottom: 10px; 
+    form {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      border: 4px solid #4CAF50;
+      position: relative;
+      z-index: 1;
     }
-    p { 
-      color: #666; 
-      font-size: 1.1rem; 
-      margin-bottom: 20px; 
+    label {
+      display: block;
+      text-align: left;
+      margin: 12px 0 6px;
+      color: #343a40;
+      font-weight: 600;
     }
-    form { 
-      background: var(--white); 
-      padding: 25px; 
-      border-radius: 15px; 
-      box-shadow: 0 5px 20px var(--shadow); 
-      border: 3px solid var(--primary-green); 
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
-    label { 
-      display: block; 
-      color: var(--dark-green); 
-      margin: 10px 0 5px; 
-      font-weight: bold; 
-      font-size: 1rem; 
+    input:focus {
+      border-color: #2e7d32;
+      box-shadow: 0 0 8px rgba(46,125,50,0.4);
+      outline: none;
     }
-    input { 
-      width: 100%; 
-      padding: 12px; 
-      border: 2px solid var(--primary-green); 
-      border-radius: 8px; 
-      box-sizing: border-box; 
-      font-size: 1rem; 
-      transition: border-color 0.3s; 
+    .optional::after {
+      content: " (Optional)";
+      font-weight: 400;
+      color: #6c757d;
     }
-    input:focus { 
-      border-color: var(--dark-green); 
-      outline: none; 
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 20px;
     }
-    button { 
-      width: 100%; 
-      padding: 14px; 
-      background: var(--primary-green); 
-      color: var(--white); 
-      border: none; 
-      border-radius: 8px; 
-      cursor: pointer; 
-      margin-top: 15px; 
-      font-size: 1.1rem; 
-      font-weight: bold; 
-      transition: background 0.3s; 
+    button:hover {
+      background: #3d8b40;
     }
-    button:hover { 
-      background: var(--dark-green); 
+    .logo {
+      max-width: 180px;
+      margin-bottom: 20px;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
     }
-    .logo { 
-      max-width: 180px; 
-      margin-bottom: 20px; 
+    .cow {
+      max-width: 70px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      opacity: 0.9;
     }
-    .cow { 
-      width: 60px; 
-      position: absolute; 
-      top: 10px; 
-      right: 10px; 
-      animation: bounce 2s infinite; 
+    .success-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      border: 3px solid #4CAF50;
+      z-index: 10;
     }
-    @keyframes bounce { 
-      0%, 100% { transform: translateY(0); } 
-      50% { transform: translateY(-10px); } 
+    .success-tick {
+      font-size: 70px;
+      color: #4CAF50;
+      margin-bottom: 15px;
+      animation: pop 0.5s ease-out;
     }
-    #loading { 
-      display: none; 
-      color: var(--primary-green); 
-      margin-top: 10px; 
-      font-style: italic; 
+    @keyframes pop {
+      0% { transform: scale(0); }
+      80% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
-    #loading .dot { 
-      animation: dot 1.5s infinite; 
-      display: inline-block; 
+    .success-text {
+      font-size: 24px;
+      color: #343a40;
+      font-weight: 500;
     }
-    #loading .dot:nth-child(2) { animation-delay: 0.2s; }
-    #loading .dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes dot { 
-      0%, 20% { transform: translateY(0); } 
-      40% { transform: translateY(-5px); } 
-      60% { transform: translateY(0); } 
+    .error-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #dc3545;
+      color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      font-size: 20px;
+      z-index: 10;
     }
-    .modal { 
-      position: fixed; 
-      top: 50%; 
-      left: 50%; 
-      transform: translate(-50%, -50%); 
-      background: var(--white); 
-      padding: 20px; 
-      border-radius: 10px; 
-      box-shadow: 0 0 15px var(--shadow); 
-      display: none; 
-      z-index: 10; 
-      text-align: center; 
-    }
-    .modal.success { 
-      border: 3px solid var(--primary-green); 
-    }
-    .modal.error { 
-      background: var(--red); 
-      color: var(--white); 
-    }
-    .modal h2 { 
-      color: var(--dark-green); 
-      margin: 0 0 10px; 
-      font-size: 1.5rem; 
-    }
-    .modal p { 
-      margin: 0; 
-      color: #555; 
-      font-size: 1rem; 
-    }
-    .modal .tick { 
-      font-size: 2rem; 
-      color: var(--primary-green); 
-      margin-bottom: 10px; 
-    }
-    .modal a { 
-      color: var(--primary-green); 
-      text-decoration: none; 
-      font-weight: bold; 
-    }
-    .modal a:hover { 
-      text-decoration: underline; 
-    }
-    .overlay { 
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      width: 100%; 
-      height: 100%; 
-      background: rgba(0, 0, 0, 0.5); 
-      display: none; 
-      z-index: 5; 
+    .bg-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 5;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/SidsFarm.png" alt="Sid’s Farm" class="logo">
-    <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/cow.png" alt="Cow" class="cow">
-    <h1>Welcome to Sid’s Farm!</h1>
-    <p>Get your free sample!</p>
-    <form id="leadForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" required>
-      <label for="mobile">Mobile Number (10 digits)</label>
-      <input type="tel" id="mobile" pattern="[0-9]{10}" required>
-      <label for="community">Community Name</label>
-      <input type="text" id="community" required>
-      <button type="submit">Submit</button>
-      <div id="loading">
-        <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span> Submitting
-      </div>
-    </form>
+  <div class="bg-overlay" id="overlay"></div>
+  <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/milk.png" alt="Cow Graphic" class="cow">
+  <img src="https://raw.githubusercontent.com/akshit-tej/sidsfarm-leads/main/SidsFarm.png" alt="Sid’s Farm Logo" class="logo">
+  <h1>Welcome to Sid’s Farm!</h1>
+  <p>Enter your details for a free milk sample.</p>
+  <form id="leadForm">
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required>
+    <label for="mobile">Mobile (10 digits) *</label>
+    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+    <label for="community">Community Name *</label>
+    <input type="text" id="community" name="community" required>
+    <label for="dob" class="optional">Date of Birth</label>
+    <input type="date" id="dob" name="dob">
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+    <button type="submit">Submit Now</button>
+  </form>
+  <div id="successBox" class="success-box">
+    <div class="success-tick">✓</div>
+    <div class="success-text">Thanks for Joining Sid’s Farm!<br>Check Back Soon!</div>
   </div>
-  <div id="overlay" class="overlay"></div>
-  <div id="successModal" class="modal success">
-    <div class="tick">✓</div>
-    <h2>Success!</h2>
-    <p>Thank you for joining Sid’s Farm!</p>
-    <p><a href="https://sidsfarm.com" target="_blank">Visit our website for more!</a></p>
-  </div>
-  <div id="errorModal" class="modal error"></div>
+  <div id="errorBox" class="error-box"></div>
   <script>
     const form = document.getElementById("leadForm");
-    const loading = document.getElementById("loading");
+    const successBox = document.getElementById("successBox");
+    const errorBox = document.getElementById("errorBox");
     const overlay = document.getElementById("overlay");
-    const successModal = document.getElementById("successModal");
-    const errorModal = document.getElementById("errorModal");
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzkXJnwDxm70FJSAf9T-hP8cTQJfhDFanua8v_hF9RWHQo-7IPPcVikGDWvd9Cqx3xICQ/exec";
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      loading.style.display = "block";
+      const name = document.getElementById("name").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const community = document.getElementById("community").value.trim();
+      const dob = document.getElementById("dob").value || "N/A";
+      let latitude = "N/A", longitude = "N/A";
 
-      const data = {
-        name: document.getElementById("name").value.trim(),
-        mobile: document.getElementById("mobile").value.trim(),
-        community: document.getElementById("community").value.trim(),
-        latitude: "N/A",
-        longitude: "N/A"
-      };
-
-      // Client-side validation
-      if (!/^[0-9]{10}$/.test(data.mobile)) {
-        showError("Mobile must be 10 digits");
-        loading.style.display = "none";
-        return;
-      }
-
-      // Try to get location (optional)
       if (navigator.geolocation) {
         try {
-          const position = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject);
-          });
-          data.latitude = position.coords.latitude;
-          data.longitude = position.coords.longitude;
-        } catch (error) {
-          // If location fails, keep as "N/A"
+          const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej));
+          latitude = pos.coords.latitude.toFixed(6);
+          longitude = pos.coords.longitude.toFixed(6);
+        } catch (err) {
+          console.log("Location skipped, no biggie");
         }
       }
 
-      try {
-        const response = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-          mode: "cors",
-          redirect: "follow"
-        });
+      document.getElementById("latitude").value = latitude;
+      document.getElementById("longitude").value = longitude;
 
-        const result = await response.json();
-        loading.style.display = "none";
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxNDcRKjMXwdsuqvTQsxa385Zq4gLkOVVvDPthRF9B3hgLW9cqacbLR55tyZ-fyZVoM/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, mobile, community, dob, latitude, longitude })
+      });
+      const result = await res.text();
 
-        if (result.status === "success") {
-          overlay.style.display = "block";
-          successModal.style.display = "block";
-          form.reset();
-          setTimeout(hideModals, 3000);
-        } else {
-          throw new Error(result.message);
-        }
-      } catch (error) {
-        showError(error.message || "Failed to submit. Please try again.");
-        loading.style.display = "none";
+      if (result === "Success") {
+        form.style.display = "none";
+        overlay.style.display = "block";
+        successBox.style.display = "block";
+        setTimeout(() => window.close(), 4000);
+      } else {
+        overlay.style.display = "block";
+        errorBox.innerText = "That mobile’s already in, try another!";
+        errorBox.style.display = "block";
+        setTimeout(() => {
+          errorBox.style.display = "none";
+          overlay.style.display = "none";
+        }, 2500);
       }
     });
-
-    function showError(message) {
-      errorModal.textContent = message;
-      overlay.style.display = "block";
-      errorModal.style.display = "block";
-      setTimeout(hideModals, 3000);
-    }
-
-    function hideModals() {
-      overlay.style.display = "none";
-      successModal.style.display = "none";
-      errorModal.style.display = "none";
-    }
   </script>
 </body>
 </html>
